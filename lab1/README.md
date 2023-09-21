@@ -1,0 +1,12 @@
+# lab1
+
+### 1. Basic Building Blocks
+
+To assign the result of 5 + 7 to a new variable called x, you type x \<-
+5 + 7. This can be read as ‘x gets 5 plus 7’. | Give it a try now.
+
+``` r
+5+7
+```
+
+    [1] 12
