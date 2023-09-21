@@ -6,7 +6,7 @@ format:
 editor: visual
 ---
 
-### 1. Basic Building Blocks
+### 1. Основные структурные элементы
 
 | To assign the result of 5 + 7 to a new variable called x, you type x \<- 5 + 7. This can be read as 'x gets 5 plus 7'. \| Give it a try now.
 
@@ -139,7 +139,7 @@ z*2+100
 z*2+1000
 ```
 
-### 2. Workspace and Files
+### 2. Рабочее пространство и файлы
 
 | Determine which directory your R session is using as its current working directory using getwd().
 
@@ -274,7 +274,7 @@ dir.create(file.path("testdir2","testdir3"),recursive = TRUE)
 setwd(old.dir)
 ```
 
-### 3. Sequences of Numbers
+### 3. Последовательности чисел
 
 | The simplest way to create a sequence of numbers in R is by using the `:` operator. Type 1:20 to see how it works.
 ```{r}
@@ -344,7 +344,7 @@ rep(c(0,1,2),times = 10)
 rep(c(0, 1, 2), each = 10)
 ```
 
-### 4. Vectors
+### 4. Векторы
 
 | First, create a numeric vector num_vect that contains the values 0.5, 55, -10, and 6.
 ```{r}

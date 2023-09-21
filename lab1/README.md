@@ -1,6 +1,6 @@
 # lab1
 
-### 1. Basic Building Blocks
+### 1. Основные структурные элементы
 
 To assign the result of 5 + 7 to a new variable called x, you type x \<-
 5 + 7. This can be read as ‘x gets 5 plus 7’. | Give it a try now.
@@ -178,7 +178,7 @@ z*2+1000
 
     [1] 1002.20 1018.00 1006.28
 
-### 2. Workspace and Files
+### 2. Рабочее пространство и файлы
 
 Determine which directory your R session is using as its current working
 directory using getwd().
@@ -300,9 +300,9 @@ file.info("mytest.R")
 ```
 
              size isdir mode               mtime               ctime
-    mytest.R    0 FALSE  666 2023-09-21 12:02:19 2023-09-21 12:02:19
+    mytest.R    0 FALSE  666 2023-09-21 12:09:46 2023-09-21 12:09:46
                            atime exe
-    mytest.R 2023-09-21 12:02:19  no
+    mytest.R 2023-09-21 12:09:46  no
 
 Change the name of the file “mytest.R” to “mytest2.R” by using
 file.rename().
@@ -369,7 +369,7 @@ questions.)
 setwd(old.dir)
 ```
 
-### 3. Sequences of Numbers
+### 3. Последовательности чисел
 
 The simplest way to create a sequence of numbers in R is by using the
 `:` operator. Type 1:20 to see how it works.
@@ -508,7 +508,7 @@ rep(c(0, 1, 2), each = 10)
 
      [1] 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2
 
-### 4. Vectors
+### 4. Векторы
 
 First, create a numeric vector num_vect that contains the values 0.5,
 55, -10, and 6.
