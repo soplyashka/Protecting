@@ -70,13 +70,13 @@ starwars |> mutate(elong = mass / height) |> slice_max (elong, n = 10) |> select
 starwars |> group_by (species) |>  summarise("Mean age" = mean(birth_year, na.rm = TRUE)) |> na.omit()
 ```
 
-10. Найти самый распространенный цвет глаз персонажей вселенной Звездных войн
+10.Найти самый распространенный цвет глаз персонажей вселенной Звездных войн
 
 ```{r}
 starwars |> group_by (eye_color) |>  summarise("count" = n()) |> slice_max(count)
 ```
 
-11. Подсчитать среднюю длину имени в каждой расе вселенной Звездных войн.
+11.Подсчитать среднюю длину имени в каждой расе вселенной Звездных войн.
 
 ```{r}
 starwars |> mutate ("length" = nchar((name))) |> group_by(species) |> summarise( mean(length))

@@ -184,8 +184,8 @@ starwars |> group_by (species) |>  summarise("Mean age" = mean(birth_year, na.rm
     14 Yoda's species      896  
     15 Zabrak               54  
 
-1.  Найти самый распространенный цвет глаз персонажей вселенной Звездных
-    войн
+10.Найти самый распространенный цвет глаз персонажей вселенной Звездных
+войн
 
 ``` r
 starwars |> group_by (eye_color) |>  summarise("count" = n()) |> slice_max(count)
@@ -196,8 +196,7 @@ starwars |> group_by (eye_color) |>  summarise("count" = n()) |> slice_max(count
       <chr>     <int>
     1 brown        21
 
-1.  Подсчитать среднюю длину имени в каждой расе вселенной Звездных
-    войн.
+11.Подсчитать среднюю длину имени в каждой расе вселенной Звездных войн.
 
 ``` r
 starwars |> mutate ("length" = nchar((name))) |> group_by(species) |> summarise( mean(length))
