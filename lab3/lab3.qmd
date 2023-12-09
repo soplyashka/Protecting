@@ -82,23 +82,34 @@ airports |> filter(alt == max(airports$alt)) |> select(faa, name)
 #### 9.Какие бортовые номера у самых старых самолетов?
 
 ```{r}
-
+head(arrange(planes, year),n=10)
 ```
 
 #### 10.Какая средняя температура воздуха была в сентябре в аэропорту John F Kennedy Intl (в градусах Цельсия).
 
 ```{r}
-
+nycflights13::weather %>%
+  filter(month == 9,origin == "JFK") %>%
+  summarise("temp" = ((temp = mean(temp,0))-32)*5/9)
 ```
 
 #### 11.Самолеты какой авиакомпании совершили больше всего вылетов в июне?
 
 ```{r}
-
+polet <- nycflights13::flights %>%
+  group_by(carrier) %>%
+  summarise('polet' = n())
+top1 <- head(arrange(polet,desc(polet)),n=1)
+filter(nycflights13::airlines,carrier == top1$carrier)
 ```
 
 #### 12.Самолеты какой авиакомпании задерживались чаще других в 2013 году?
 
 ```{r}
-
+polet2 <- nycflights13::flights %>%
+  group_by(carrier) %>%
+  filter(dep_delay > 0, arr_delay > 0) %>%
+  summarise('polet' = n())
+top2 <- head(arrange(polet2,desc(polet)),n=1)
+filter(nycflights13::airlines,carrier == top2$carrier)
 ```
