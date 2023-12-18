@@ -1,0 +1,87 @@
+---
+title: "lab3"
+format: 
+    md:
+        output-file: README.md
+editor: visual
+---
+
+## Цель работы
+
+1.  Зекрепить практические навыки использования языка программирования R для обработки данных
+2.  Закрепить знания основных функций обработки данных экосистемы tidyverse языка R
+3.  Закрепить навыки исследования метаданных DNS трафика
+
+## Ход работы
+
+Для начала загрузим библиотеку:
+
+```{r}
+library(dplyr)
+library(tidyverse)
+```
+
+### Подготовка данных
+
+1.Импортируйте данные DNS
+
+```{r}
+head <- read.csv("header.csv")
+log<-read.csv("dns.log", sep = '\t', header = FALSE)
+```
+
+2.Добавьте пропущенные данные о структуре данных (назначении столбцов)
+
+```{r}
+names(log) <- c("ts","uid","id.orig_h","id.orig_p","id.resp_h","id.resp_p","proto","trans_id","query","qclass","qclass_name","qtype","qtype_name","rcode","rcode_name","AA","TC", "RD","RA","Z","answers","TTLs","rejected")
+
+```
+
+3.Преобразуйте данные в столбцах в нужный формат
+
+4.Посмотрите общую структуру данных с помощью функции glimpse()
+
+```{r}
+glimpse(log)
+```
+
+###Анализ 4. Сколько участников информационного обмена в сети Доброй Организации?
+
+```{r}
+log %>% count(log$id.orig_h) %>% nrow()
+```
+
+5.  Какое соотношение участников обмена внутри сети и участников обращений к внешним ресурсам?
+
+```{r}
+ins <- filter(log, qtype_name == 'A'| qtype_name == 'AA' | qtype_name =='AAA' | qtype_name == 'AAAA') %>% group_by(uid) %>% count() %>% nrow() 
+outs <- filter(log, qtype_name != 'A', qtype_name !='AA', qtype_name !='AAA', qtype_name !='AAAA') %>% group_by(uid) %>% count() %>% nrow()
+ins/outs
+```
+
+6.  Найдите топ-10 участников сети, проявляющих наибольшую сетевую активность.
+
+```{r}
+select(log,uid) %>% group_by(uid) %>% count() %>% arrange(desc(n)) %>% head(10)
+```
+
+7.  Найдите топ-10 доменов, к которым обращаются пользователи сети и соответственное количество обращений
+
+```{r}
+domens <- log %>% filter(query !='-', qtype_name == 'A'| qtype_name == 'AA' | qtype_name =='AAA' | qtype_name == 'AAAA') %>% select(query) %>% group_by(query) %>% count() %>% arrange(desc(n)) %>% head(10)
+domens
+```
+
+8.  Опеределите базовые статистические характеристики (функция summary()) интервала времени между последовательным обращениями к топ-10 доменам.
+
+```{r}
+summary(diff((log %>% filter(tolower(query) %in% domens$query) %>% arrange(ts))$ts))
+```
+
+9.  Часто вредоносное программное обеспечение использует DNS канал в качестве канала управления, периодически отправляя запросы на подконтрольный злоумышленникам DNS сервер. По периодическим запросам на один и тот же домен можно выявить скрытый DNS канал. Есть ли такие IP адреса в исследуемом датасете?
+
+```{r}
+t <- log %>% group_by(id.orig_h, query) %>% summarise(total = n()) %>% filter(total > 1)
+unique(t$id.orig_h)%>% head()
+```
+
