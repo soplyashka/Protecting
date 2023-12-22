@@ -185,22 +185,4 @@ summary(diff((log %>% filter(tolower(query) %in% domens$query) %>% arrange(ts))$
         Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
         0.00     0.00     0.00     1.08     0.31 49924.53 
 
-1.  Часто вредоносное программное обеспечение использует DNS канал в
-    качестве канала управления, периодически отправляя запросы на
-    подконтрольный злоумышленникам DNS сервер. По периодическим запросам
-    на один и тот же домен можно выявить скрытый DNS канал. Есть ли
-    такие IP адреса в исследуемом датасете?
-
-``` r
-t <- log %>% group_by(id.orig_h, query) %>% summarise(total = n()) %>% filter(total > 1)
-```
-
-    `summarise()` has grouped output by 'id.orig_h'. You can override using the
-    `.groups` argument.
-
-``` r
-unique(t$id.orig_h)%>% head()
-```
-
-    [1] "10.10.10.10"     "10.10.117.209"   "10.10.117.210"   "128.244.37.196" 
-    [5] "169.254.109.123" "169.254.228.26" 
+\`\`\`
